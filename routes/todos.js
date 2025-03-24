@@ -74,7 +74,7 @@ router.post('/login', async (req, res) => {
 
 
 // GET all todos
-router.get("/", async (req, res, next) => {
+router.get("/", async (req, res) => {
   try {
     const sql = "SELECT * FROM todos ORDER BY created_at DESC";
     const result = await db.query(
@@ -91,8 +91,20 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+// Get Specific user todos 
+router.get("/user/:user_id", authenticateToken, async (req, res) => {
+  const { user_id } = req.params;
+  try {
+    const result = await db.query(`SELECT * FROM todos WHERE user_id = $1`, [user_id]);
+    res.status(200).json(result.rows)
+  } catch (error) {
+    res.status(500).send(error, { message: "Internal server error" });
+  }
+
+})
+
 //GET single todo
-router.get("/:id", authenticateToken, async (req, res, next) => {
+router.get("/:id", authenticateToken, async (req, res) => {
   try {
     const id = req.params.id;
     const sql = "SELECT * FROM todos WHERE id  = $1 ORDER BY created_at DESC";
