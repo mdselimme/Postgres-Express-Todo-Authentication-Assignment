@@ -3,6 +3,7 @@ const router = express.Router();
 const db = require("../config/db");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const authenticateToken = require("../middleswares/middlewares")
 
 
 // Create User Registration 
@@ -20,8 +21,8 @@ router.post('/register', async (req, res) => {
     };
 
     // Hashpassword method 
-    const suger = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(password, suger);
+    const sugerLimit = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(password, sugerLimit);
 
     // User Registration method 
     const createUser = await db.query(
@@ -71,6 +72,7 @@ router.post('/login', async (req, res) => {
 });
 
 
+
 // GET all todos
 router.get("/", async (req, res, next) => {
   try {
@@ -90,7 +92,7 @@ router.get("/", async (req, res, next) => {
 });
 
 //GET single todo
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", authenticateToken, async (req, res, next) => {
   try {
     const id = req.params.id;
     const sql = "SELECT * FROM todos WHERE id  = $1 ORDER BY created_at DESC";
@@ -108,18 +110,23 @@ router.get("/:id", async (req, res, next) => {
 });
 
 //POST one single todo
-router.post("/", async (req, res, next) => {
-  console.log(req.body);
+router.post("/", authenticateToken, async (req, res) => {
+  const { user_id, title, completed } = req.body;
+  const userExits = await db.query(`SELECT * FROM users WHERE id = $1`, [user_id]);
+  if (userExits.rows.length === 0) {
+    return res.status(400).json({ message: "User not Found" });
+  }
   try {
-    const { user_id, title, completed } = req.body;
-    if (!title) {
-      res.status(400).send({ message: "Title is required" });
+    if (!title || !user_id || !completed) {
+      res.status(400).send({ message: "All fields are required." });
       return;
     }
-    const sql = `INSERT INTO todos (user_id, title, description) values($1,$2, $3)`
+    const sql = `INSERT INTO todos (user_id, title, completed) values($1,$2, $3)`
     const params = [user_id, title, completed];
-    const result = db.query(sql, params);
-    res.status(201).send(result.rows);
+    const result = await db.query(sql, params);
+    console.log(result)
+    res.status(201).json((result.rows, { message: "Task Submitted Successfully" })
+    )
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal server error");
@@ -127,7 +134,7 @@ router.post("/", async (req, res, next) => {
 });
 
 //DELETE one single todo
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", authenticateToken, async (req, res) => {
   try {
     const id = req.params.id;
     const sql = "DELETE FROM todos WHERE id  = $1 returning *";
@@ -145,25 +152,16 @@ router.delete("/:id", async (req, res, next) => {
 });
 
 //Update one single todo
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", authenticateToken, async (req, res) => {
   try {
     const id = req.params.id;
-    const { title, description, is_completed } = req.body;
-    if (!title) {
-      res.status(400).send("title is required");
+    const { title, is_completed } = req.body;
+    if (!title || !is_completed) {
+      res.status(400).send("All fields Are Required");
       return;
     }
-    if (!description) {
-      res.status(400).send("description is required");
-      return;
-    }
-    if (!is_completed) {
-      res.status(400).send("is_completed is required");
-      return;
-    }
-    const sql =
-      "UPDATE todos SET title = $1, description = $2, is_completed = $3 WHERE id = $4 RETURNING *";
-    const params = [title, description, is_completed, id];
+    const sql = "UPDATE todos SET title = $1, is_completed = $2 WHERE id = $3 RETURNING *";
+    const params = [title, is_completed, id];
     const result = await db.query(sql, params);
     if (result.rows.length == 0) {
       res.status(404).json(result.rows[0]);
