@@ -76,7 +76,7 @@ router.post('/login', async (req, res) => {
 // GET all todos
 router.get("/", async (req, res) => {
   try {
-    const sql = "SELECT * FROM todos ORDER BY created_at DESC";
+    const sql = "SELECT * FROM todos ORDER BY id ASC";
     const result = await db.query(
       sql
     );
@@ -107,7 +107,7 @@ router.get("/user/:user_id", authenticateToken, async (req, res) => {
 router.get("/:id", authenticateToken, async (req, res) => {
   try {
     const id = req.params.id;
-    const sql = "SELECT * FROM todos WHERE id  = $1 ORDER BY created_at DESC";
+    const sql = "SELECT * FROM todos WHERE id  = $1";
     const params = [id];
     const result = await db.query(sql, params);
     if (result.rows.length == 0) {
