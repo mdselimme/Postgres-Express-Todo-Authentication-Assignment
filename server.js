@@ -2,14 +2,12 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require('cors');
 const app = express();
-const swaggerUi = require('swagger-ui-express');
 const cookieParser = require("cookie-parser");
-const YAML = require("yamljs");
 const PORT = process.env.PORT || 3000;
 require("dotenv").config();
 
 
-app.use(express.static("public"));
+app.use(cookieParser());
 
 app.use(cors({
   credentials: true,
@@ -21,16 +19,9 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(cookieParser());
 
-
+// Routes Create
 const todoRoutes = require("./routes/todos");
 const authRoutes = require("./controller/authController");
-
-
-
-const swaggerDocs = YAML.load("swagger.yaml");
-
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 
 // Routes
