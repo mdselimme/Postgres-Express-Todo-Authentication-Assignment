@@ -12,7 +12,8 @@ require("dotenv").config();
 
 
 app.use(cors({
-  credentials: true
+  credentials: true,
+  origin: ["http://localhost:5173", "https://postgres-express-todo-authentication-assignment.vercel.app"]
 }))
 
 // Middleware

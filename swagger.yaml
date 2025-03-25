@@ -129,3 +129,49 @@ paths:
           description: Invalid Email.
         "500":
           description: Internal server error.
+
+  /api/todos/:
+    post:
+      summary: Add todo
+      description: Add todo by specific user.
+      tags:
+        - Todo Add
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  format: number
+                  example: 10
+                title:
+                  type: string
+                  format: text
+                  example: Go To School
+                completed:
+                  type: boolean
+                  format: true default false
+                  example: true 
+              required:
+                - user_id
+                - title
+      responses:
+        "201":
+          description: Task Submitted Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Task Submitted Successfully"                 
+        "400":
+          description: User not Found.
+        "401":
+          description: Invalid Email.
+        "500":
+          description: Internal server error.
