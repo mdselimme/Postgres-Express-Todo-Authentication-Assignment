@@ -125,40 +125,6 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// Log In User 
-/* router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-    console.log(req.body);
-    if (!email || !password) {
-        return res.status(400).json({ message: "All fields are required" });
-    }
-    try {
-        // Email Compare Check 
-        const userEmailExits = await db.query(`SELECT * FROM users WHERE email = $1`, [email]);
 
-        if (userEmailExits.rows.length === 0) {
-            return res.status(400).send({ message: "Invalid Email" });
-        }
-
-        // Password Compare 
-        const passMathch = await bcrypt.compare(password, userEmailExits.rows[0].password);
-        if (!passMathch) {
-            return res.status(400).json({ message: "Invalid Email Or Password" });
-        }
-
-        // Generate Json Web Token 
-        const webToken = jwt.sign(
-            { id: userEmailExits.rows[0].id, email: userEmailExits.rows[0].email },
-            process.env.JWT_TOKEN_SECRET,
-            { expiresIn: '1h' }
-        );
-
-        res.status(200).json({ message: "Login successful", data: { id: userEmailExits.rows[0].id, name: userEmailExits.rows[0].name, email: userEmailExits.rows[0].email }, webToken });
-
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Server Internal Error" });
-    };
-}); */
 
 module.exports = router; 
