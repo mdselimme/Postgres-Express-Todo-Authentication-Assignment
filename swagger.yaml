@@ -8,8 +8,7 @@ info:
     email: "contact.mdselim.dev@gmail.com "
 
 servers:
-  - url: https://postgres-express-todo-authentication-assignment.vercel.app/
-    description: Local Server
+  - url: https://postgres-express-todo-authentication-assignment.vercel.app
 
 paths:
   /api/user/register:
@@ -130,12 +129,12 @@ paths:
         "500":
           description: Internal server error.
 
-  /api/todos/:
+  /api/todos:
     post:
       summary: Add todo
       description: Add todo by specific user.
       tags:
-        - Todo Add
+        - Todo
       requestBody:
         required: true
         content:
@@ -175,3 +174,7 @@ paths:
           description: Invalid Email.
         "500":
           description: Internal server error.
+
+
+  
+ 

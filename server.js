@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 require("dotenv").config();
 
 
-
+app.use(express.static("public"));
 
 app.use(cors({
   credentials: true,
@@ -21,12 +21,13 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(cookieParser());
 
+
 const todoRoutes = require("./routes/todos");
 const authRoutes = require("./controller/authController");
 
-app.use(express.static("public"));
 
-const swaggerDocs = YAML.load("./swagger.yaml");
+
+const swaggerDocs = YAML.load("swagger.yaml");
 
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
