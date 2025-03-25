@@ -2,9 +2,9 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require('cors');
 const app = express();
-const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const cookieParser = require("cookie-parser");
+const YAML = require("yamljs");
 const PORT = process.env.PORT || 3000;
 require("dotenv").config();
 
@@ -23,31 +23,13 @@ app.use(cookieParser());
 const todoRoutes = require("./routes/todos");
 const authRoutes = require("./controller/authController");
 
+app.use(express.static("public"));
 
-const swaggerOptions = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'TODO API',
-      version: '1.0.0',
-      description: 'API documentation for the TODO website',
-      contact: {
-        name: 'Md Selim',
-        email: 'contact.mdselim.dev@gmail.com'
-      }
-    },
-    servers: [
-      {
-        url: 'http://localhost:3000',
-        description: 'Local server'
-      }
-    ]
-  },
-  apis: ['*js']
-};
+const swaggerDocs = YAML.load("./swagger.yaml");
 
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
 
 // Routes
 app.use("/api/todos", todoRoutes);

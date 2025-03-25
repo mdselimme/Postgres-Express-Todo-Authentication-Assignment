@@ -41,8 +41,9 @@ router.get("/:id", authenticateToken, async (req, res) => {
     const sql = "SELECT * FROM todos WHERE id  = $1";
     const params = [id];
     const result = await db.query(sql, params);
-    if (result.rows.length == 0) {
-      res.status(404).json(result.rows[0]);
+    console.log(result.rows)
+    if (result.rows.length === 0) {
+      res.status(404).json("No data found");
       return;
     }
     res.status(200).json(result.rows[0]);
@@ -60,7 +61,7 @@ router.post("/", authenticateToken, async (req, res) => {
     return res.status(400).json({ message: "User not Found" });
   }
   try {
-    if (!title || !user_id || !completed) {
+    if (!title || !user_id) {
       res.status(400).send({ message: "All fields are required." });
       return;
     }
@@ -99,7 +100,7 @@ router.put("/:id", authenticateToken, async (req, res) => {
   try {
     const id = req.params.id;
     const { title, is_completed } = req.body;
-    if (!title || !is_completed) {
+    if (!title) {
       res.status(400).send("All fields Are Required");
       return;
     }

@@ -24,7 +24,7 @@ router.post('/register', async (req, res) => {
     console.log(req.body);
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
-        return res.status(400).json({ message: "All feilds are required" });
+        return res.status(401).json({ message: "All feilds are required" });
     }
     try {
         // Check Email Duplicate 
