@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3000;
 require("dotenv").config();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./public/swagger-output.json');
-// const swaggerUiAssetPath = require("swagger-ui-dist").getAbsoluteFSPath()
+const swaggerUiAssetPath = require("swagger-ui-dist").getAbsoluteFSPath()
 
 app.use(express.static("public"));
 app.use(cookieParser());
