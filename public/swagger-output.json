@@ -5,8 +5,8 @@
     "description": "Todo App Application Details",
     "version": "1.0.0"
   },
-  "host": "https://postgres-express-todo-authentication-assignment.vercel.app",
-  "basePath": "/",
+  "host": "https://postgres-express-todo-authentication-assignment.vercel.app/",
+  "basePath": "",
   "schemes": [
     "https://postgres-express-todo-authentication-assignment.vercel.app/"
   ],
