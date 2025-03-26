@@ -21,6 +21,8 @@ const generateRefreshToken = (user) => {
 
 // login refresh token 
 router.post('/login', async (req, res) => {
+
+    // #swagger.tags = ['Authorization']
     const logInData = req.body;
     const { email, password } = req.body;
 
@@ -72,6 +74,7 @@ router.post('/login', async (req, res) => {
 
 // refresh router make 
 router.post("/refresh", (req, res) => {
+    // #swagger.tags = ['Authorization']
     const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) return res.sendStatus(401).json({ message: "Unauthorized" });
     console.log(refreshToken);
@@ -89,6 +92,7 @@ router.post("/refresh", (req, res) => {
 
 // LogOut System Refresh Cookie 
 router.post("/logout", (req, res) => {
+    // #swagger.tags = ['Authorization']
     res.clearCookie("refreshToken");
     res.sendStatus(204).statusMessage("Log Out Successful")
 })
@@ -97,6 +101,7 @@ router.post("/logout", (req, res) => {
 
 // Create User Registration 
 router.post('/register', async (req, res) => {
+    // #swagger.tags = ['Authorization']
     console.log(req.body);
     const { name, email, password } = req.body;
     if (!name || !email || !password) {

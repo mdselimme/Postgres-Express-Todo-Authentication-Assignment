@@ -7,7 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx nodemon server.js",
     "start": "nodemon server.js",
-    "build": "echo \"Build completed\""
+    "build": "echo \"Build completed\"",
+    "swagger": "node ./swagger.js"
+  },
+  "scarfSettings": {
+    "enabled": false
   },
   "author": "Md. Selim",
   "license": "ISC",
@@ -21,6 +25,9 @@
     "morgan": "^1.10.0",
     "nodemon": "^3.1.9",
     "pg": "^8.13.3",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-dist": "^5.20.1",
+    "swagger-ui-express": "^5.0.1",
     "vercel": "^41.4.1"
   }
 }
