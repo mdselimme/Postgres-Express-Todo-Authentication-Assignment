@@ -5,10 +5,10 @@
     "description": "Todo App Application Details",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
-  "basePath": "/",
+  "host": "https://postgres-express-todo-authentic-git-d449ec-mdselimdevs-projects.vercel.app/",
+  "basePath": "api",
   "schemes": [
-    "http"
+    "https://postgres-express-todo-authentic-git-d449ec-mdselimdevs-projects.vercel.app"
   ],
   "paths": {
     "/api/user/login": {
