@@ -6,6 +6,7 @@ const authenticateToken = require("../controller/middlewares")
 
 // GET all todos
 router.get("/", async (req, res) => {
+  // #swagger.tags = ['Todos Data']
   try {
     const sql = "SELECT * FROM todos ORDER BY id ASC";
     const result = await db.query(
@@ -24,6 +25,7 @@ router.get("/", async (req, res) => {
 
 // Get Specific user todos 
 router.get("/user/:user_id", authenticateToken, async (req, res) => {
+  // #swagger.tags = ['Todos Data']
   const { user_id } = req.params;
   try {
     const result = await db.query(`SELECT * FROM todos WHERE user_id = $1`, [user_id]);
@@ -36,6 +38,7 @@ router.get("/user/:user_id", authenticateToken, async (req, res) => {
 
 //GET single todo
 router.get("/:id", authenticateToken, async (req, res) => {
+  // #swagger.tags = ['Todos Data']
   try {
     const id = req.params.id;
     const sql = "SELECT * FROM todos WHERE id  = $1";
@@ -55,6 +58,7 @@ router.get("/:id", authenticateToken, async (req, res) => {
 
 //POST one single todo
 router.post("/", authenticateToken, async (req, res) => {
+  // #swagger.tags = ['Todos Data']
   const { user_id, title, completed } = req.body;
   const userExits = await db.query(`SELECT * FROM users WHERE id = $1`, [user_id]);
   if (userExits.rows.length === 0) {
@@ -79,6 +83,7 @@ router.post("/", authenticateToken, async (req, res) => {
 
 //DELETE one single todo
 router.delete("/:id", authenticateToken, async (req, res) => {
+  // #swagger.tags = ['Todos Data']
   try {
     const id = req.params.id;
     const sql = "DELETE FROM todos WHERE id  = $1 returning *";
@@ -97,6 +102,7 @@ router.delete("/:id", authenticateToken, async (req, res) => {
 
 //Update one single todo
 router.put("/:id", authenticateToken, async (req, res) => {
+  // #swagger.tags = ['Todos Data']
   try {
     const id = req.params.id;
     const { title, is_completed } = req.body;

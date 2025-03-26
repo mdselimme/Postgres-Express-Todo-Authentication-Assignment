@@ -5,6 +5,12 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 3000;
 require("dotenv").config();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger-output.json');
+
+
+
+
 
 
 app.use(cookieParser());
@@ -12,8 +18,12 @@ app.use(cookieParser());
 app.use(cors({
   credentials: true,
   origin: ["http://localhost:5173"]
-}))
+}));
 
+
+
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // Middleware
 app.use(express.json());
 app.use(morgan("dev"));
