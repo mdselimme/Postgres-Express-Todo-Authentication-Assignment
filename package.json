@@ -10,6 +10,9 @@
     "build": "echo \"Build completed\"",
     "swagger": "node ./swagger.js"
   },
+  "scarfSettings":{
+    "enabled": false
+  },
   "author": "Md. Selim",
   "license": "ISC",
   "dependencies": {
@@ -23,6 +26,7 @@
     "nodemon": "^3.1.9",
     "pg": "^8.13.3",
     "swagger-autogen": "^2.23.7",
+    "swagger-ui-dist": "^5.20.1",
     "swagger-ui-express": "^5.0.1",
     "vercel": "^41.4.1",
     "yamljs": "^0.3.0"
