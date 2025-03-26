@@ -9,11 +9,6 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger-output.json');
 
 app.use(express.static("public"));
-
-
-
-
-
 app.use(cookieParser());
 
 app.use(cors({
