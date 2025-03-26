@@ -8,6 +8,7 @@ require("dotenv").config();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger-output.json');
 
+app.use(express.static("public"));
 
 
 

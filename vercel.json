@@ -9,7 +9,8 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/api"
+      "destination": "/api",
+       "includeFiles": ["./swagger-output.json"]
     }
   ]
 }
