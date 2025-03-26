@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "includeFiles": ["./swagger-output.json"],
   "builds": [
     {
       "src": "api/index.js",
@@ -9,8 +10,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/api",
-       "includeFiles": ["./swagger-output.json"]
+      "destination": "/api" 
     }
   ]
 }
