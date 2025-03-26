@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 3000;
 require("dotenv").config();
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger-output.json');
+const swaggerDocument = require('./public/swagger-output.json');
 
 app.use(express.static("public"));
 app.use(cookieParser());

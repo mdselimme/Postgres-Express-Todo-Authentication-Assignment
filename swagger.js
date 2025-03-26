@@ -9,7 +9,7 @@ const doc = {
     host: 'localhost:3000'
 };
 
-const outputFile = './swagger-output.json';
+const outputFile = './public/swagger-output.json';
 const routes = ['./controller/authController.js', './routes/todos.js'];
 
 /* NOTE: If you are using the express Router, you must pass in the 'routes' only the 
